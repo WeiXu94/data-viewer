@@ -29,6 +29,10 @@ Build a `.app` wrapper:
 ./scripts/build-app.sh
 ```
 
+The app bundle includes a Quick Look preview extension for `.dta` files. After
+macOS registers `DataViewer.app`, Finder can use the spacebar preview to show the
+dataset label, dimensions, variables, and the first rows.
+
 ## Layout
 
 ```text

@@ -27,6 +27,7 @@
             <string>Owner</string>
             <key>LSItemContentTypes</key>
             <array>
+                <string>com.stata.stata.data</string>
                 <string>com.stata.dta</string>
             </array>
         </dict>
@@ -37,6 +38,25 @@
     <true/>
     <key>UTImportedTypeDeclarations</key>
     <array>
+        <dict>
+            <key>UTTypeConformsTo</key>
+            <array>
+                <string>public.data</string>
+            </array>
+            <key>UTTypeDescription</key>
+            <string>Stata Dataset</string>
+            <key>UTTypeIdentifier</key>
+            <string>com.stata.stata.data</string>
+            <key>UTTypeTagSpecification</key>
+            <dict>
+                <key>public.filename-extension</key>
+                <array>
+                    <string>dta</string>
+                </array>
+                <key>public.mime-type</key>
+                <string>application/x-stata-dta</string>
+            </dict>
+        </dict>
         <dict>
             <key>UTTypeConformsTo</key>
             <array>

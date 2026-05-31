@@ -9,7 +9,8 @@ let package = Package(
     ],
     products: [
         .executable(name: "DataViewer", targets: ["DataViewer"]),
-        .executable(name: "dta-inspect", targets: ["DtaInspect"])
+        .executable(name: "dta-inspect", targets: ["DtaInspect"]),
+        .executable(name: "DtaQuickLookPreview", targets: ["DtaQuickLookPreview"])
     ],
     targets: [
         .target(
@@ -48,6 +49,16 @@ let package = Package(
             name: "DtaInspect",
             dependencies: ["DtaCore"],
             path: "tools/DtaInspect"
+        ),
+        .executableTarget(
+            name: "DtaQuickLookPreview",
+            dependencies: ["DtaCore"],
+            path: "quicklook",
+            linkerSettings: [
+                .linkedFramework("Foundation"),
+                .linkedFramework("QuickLookUI"),
+                .linkedFramework("UniformTypeIdentifiers")
+            ]
         ),
         .testTarget(
             name: "DtaCoreTests",
