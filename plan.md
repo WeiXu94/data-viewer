@@ -177,13 +177,13 @@ Each phase is independently testable. Build in order.
 ## 11. Repo layout (suggested)
 
 ```text
-dta-viewer/
+data-viewer/
 ├── core/
 │   ├── dta_core.h
 │   ├── dta_core.c
 │   └── readstat/        # vendored ReadStat sources
 ├── app/
-│   ├── DtaViewer-Bridging-Header.h
+│   ├── DataViewer-Bridging-Header.h
 │   ├── DtaDocument.swift
 │   ├── TableViewController.swift
 │   └── AppDelegate.swift

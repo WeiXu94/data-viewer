@@ -3,12 +3,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "DtaViewer",
+    name: "DataViewer",
     platforms: [
         .macOS(.v12)
     ],
     products: [
-        .executable(name: "DtaViewer", targets: ["DtaViewer"]),
+        .executable(name: "DataViewer", targets: ["DataViewer"]),
         .executable(name: "dta-inspect", targets: ["DtaInspect"])
     ],
     targets: [
@@ -36,7 +36,7 @@ let package = Package(
             ]
         ),
         .executableTarget(
-            name: "DtaViewer",
+            name: "DataViewer",
             dependencies: ["DtaCore"],
             path: "app",
             linkerSettings: [

@@ -1,4 +1,4 @@
-# DtaViewer
+# DataViewer
 
 Native macOS read-only viewer for Stata `.dta` files.
 
@@ -20,7 +20,7 @@ swift run dta-inspect tests/fixtures/auto.dta 5
 Run the AppKit viewer from the package:
 
 ```sh
-swift run DtaViewer tests/fixtures/auto.dta
+swift run DataViewer tests/fixtures/auto.dta
 ```
 
 Build a `.app` wrapper:
@@ -32,7 +32,7 @@ Build a `.app` wrapper:
 ## Layout
 
 ```text
-dta-viewer/
+data-viewer/
 ├── app/                 Swift/AppKit UI
 ├── core/                C wrapper API and vendored ReadStat
 ├── resources/           App bundle metadata

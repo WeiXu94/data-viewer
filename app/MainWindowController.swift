@@ -10,7 +10,7 @@ final class MainWindowController: NSWindowController {
             backing: .buffered,
             defer: false
         )
-        window.title = "DtaViewer"
+        window.title = "DataViewer"
         window.center()
         window.contentMinSize = NSSize(width: 760, height: 480)
         window.sharingType = .readWrite
