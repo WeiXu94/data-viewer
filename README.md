@@ -7,14 +7,21 @@ The project follows the fetched `plan.md`: C parsers are vendored under `core`,
 a small wrapper exposes metadata and windowed display-string rows, and the
 Swift/AppKit executable renders the shared grid on demand.
 
-## GitHub Release Caveat
+## Installation
 
-GitHub release DMGs are unsigned/not notarized. After dragging `DataViewer.app`
-to Applications, users may need to remove Gatekeeper quarantine:
+You can install DataViewer directly from the GitHub release DMG. The installation
+is slightly complex because the package is not notarized. The steps are as
+follows:
+
+1. Download the `.dmg` file from releases, open the file, and drag
+   `DataViewer.app` to Applications.
+2. Open a terminal and run the following command.
 
 ```sh
 xattr -rd com.apple.quarantine /Applications/DataViewer.app
 ```
+
+3. Launch DataViewer.
 
 ## Build
 
