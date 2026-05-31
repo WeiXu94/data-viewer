@@ -39,6 +39,21 @@ The app bundle includes a Quick Look preview extension for `.dta`, `.rds`, and
 spacebar preview to show the dataset label, dimensions, variables, and the first
 rows.
 
+Build a GitHub-release style DMG:
+
+```sh
+BUILD_ARCHS="arm64" ARCH_LABEL="arm64" ./scripts/make-dmg.sh
+BUILD_ARCHS="arm64 x86_64" ARCH_LABEL="universal" ./scripts/make-dmg.sh
+```
+
+GitHub release DMGs are unsigned/not notarized unless you provide a Developer ID
+signing identity. After dragging `DataViewer.app` to Applications, users may
+need to remove Gatekeeper quarantine:
+
+```sh
+xattr -rd com.apple.quarantine /Applications/DataViewer.app
+```
+
 ## Format Support
 
 - `.dta`: Stata datasets through vendored ReadStat.
