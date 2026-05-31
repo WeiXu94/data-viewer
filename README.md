@@ -7,6 +7,15 @@ The project follows the fetched `plan.md`: C parsers are vendored under `core`,
 a small wrapper exposes metadata and windowed display-string rows, and the
 Swift/AppKit executable renders the shared grid on demand.
 
+## GitHub Release Caveat
+
+GitHub release DMGs are unsigned/not notarized. After dragging `DataViewer.app`
+to Applications, users may need to remove Gatekeeper quarantine:
+
+```sh
+xattr -rd com.apple.quarantine /Applications/DataViewer.app
+```
+
 ## Build
 
 ```sh
@@ -44,14 +53,6 @@ Build a GitHub-release style DMG:
 ```sh
 BUILD_ARCHS="arm64" ARCH_LABEL="arm64" ./scripts/make-dmg.sh
 BUILD_ARCHS="arm64 x86_64" ARCH_LABEL="universal" ./scripts/make-dmg.sh
-```
-
-GitHub release DMGs are unsigned/not notarized unless you provide a Developer ID
-signing identity. After dragging `DataViewer.app` to Applications, users may
-need to remove Gatekeeper quarantine:
-
-```sh
-xattr -rd com.apple.quarantine /Applications/DataViewer.app
 ```
 
 ## Format Support
