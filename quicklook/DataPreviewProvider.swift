@@ -1,9 +1,9 @@
 import Foundation
 import QuickLookUI
 import UniformTypeIdentifiers
-import DtaCore
+import DataCore
 
-public final class DtaPreviewProvider: QLPreviewProvider, QLPreviewingController {
+public final class DataPreviewProvider: QLPreviewProvider, QLPreviewingController {
     public func providePreview(for request: QLFilePreviewRequest) async throws -> QLPreviewReply {
         let fileURL = request.fileURL
         let contentSize = CGSize(width: 980, height: 720)
@@ -21,25 +21,25 @@ public final class DtaPreviewProvider: QLPreviewProvider, QLPreviewingController
 
     private static func renderHTML(for fileURL: URL) -> String {
         var errorCode: Int32 = 0
-        guard let doc = dta_open(fileURL.path, &errorCode) else {
-            let message = String(cString: dta_error_message(errorCode))
+        guard let doc = data_open(fileURL.path, &errorCode) else {
+            let message = String(cString: data_error_message(errorCode))
             return errorHTML(title: fileURL.lastPathComponent, message: message)
         }
         defer {
-            dta_close(doc)
+            data_close(doc)
         }
 
-        guard let metaPointer = dta_metadata(doc) else {
+        guard let metaPointer = data_metadata(doc) else {
             return errorHTML(title: fileURL.lastPathComponent, message: "Metadata unavailable.")
         }
 
         let meta = metaPointer.pointee
         let columns = readColumns(meta)
         let previewRowCount = min(Int32(40), Int32(max(0, min(meta.row_count, Int64(Int32.max)))))
-        let chunk = previewRowCount > 0 ? dta_fetch(doc, 0, previewRowCount) : nil
+        let chunk = previewRowCount > 0 ? data_fetch(doc, 0, previewRowCount) : nil
         defer {
             if let chunk {
-                dta_chunk_free(chunk)
+                data_chunk_free(chunk)
             }
         }
 
@@ -52,7 +52,7 @@ public final class DtaPreviewProvider: QLPreviewProvider, QLPreviewingController
         )
     }
 
-    private static func readColumns(_ meta: DtaMeta) -> [PreviewColumn] {
+    private static func readColumns(_ meta: DataMeta) -> [PreviewColumn] {
         guard let columnPointer = meta.columns else {
             return []
         }
@@ -76,9 +76,9 @@ public final class DtaPreviewProvider: QLPreviewProvider, QLPreviewingController
         datasetLabel: String,
         rowCount: Int64,
         columns: [PreviewColumn],
-        chunk: UnsafeMutablePointer<DtaChunk>?
+        chunk: UnsafeMutablePointer<DataChunk>?
     ) -> String {
-        let subtitle = datasetLabel.isEmpty ? "Stata dataset" : datasetLabel
+        let subtitle = datasetLabel.isEmpty ? "Dataset" : datasetLabel
         let columnList = columns.prefix(80).map { column in
             let label = column.label.isEmpty ? "" : "<span>\(escape(column.label))</span>"
             return "<li><strong>\(escape(column.name))</strong>\(label)</li>"
@@ -193,7 +193,7 @@ public final class DtaPreviewProvider: QLPreviewProvider, QLPreviewingController
                     <h1>\(escape(fileName))</h1>
                     <div class="subtitle">\(escape(subtitle))</div>
                 </div>
-                <div class="counts">\(rowCount) obs x \(columns.count) vars</div>
+                <div class="counts">\(rowCount) rows x \(columns.count) columns</div>
             </header>
             <div class="grid">
                 <aside>
@@ -214,7 +214,7 @@ public final class DtaPreviewProvider: QLPreviewProvider, QLPreviewingController
         """
     }
 
-    private static func previewRows(columns: [PreviewColumn], chunk: UnsafeMutablePointer<DtaChunk>?) -> String {
+    private static func previewRows(columns: [PreviewColumn], chunk: UnsafeMutablePointer<DataChunk>?) -> String {
         guard let chunk, let cells = chunk.pointee.cells else {
             return "<tr><td colspan=\"\(max(columns.count, 1))\">No rows to preview.</td></tr>"
         }
@@ -225,7 +225,7 @@ public final class DtaPreviewProvider: QLPreviewProvider, QLPreviewingController
             for column in 0..<columns.count {
                 let index = row * Int(chunk.pointee.col_count) + column
                 let value = cells[index].map { String(cString: $0) } ?? ""
-                let cssClass = columns[column].type == DTA_NUMERIC ? "num" : "str"
+                let cssClass = columns[column].type == DATA_NUMERIC ? "num" : "str"
                 cellsHTML.append("<td class=\"\(cssClass)\">\(escape(value))</td>")
             }
             rows.append("<tr>\(cellsHTML.joined())</tr>")
@@ -247,7 +247,7 @@ public final class DtaPreviewProvider: QLPreviewProvider, QLPreviewingController
         </head>
         <body>
         <h1>\(escape(title))</h1>
-        <p>Unable to preview this Stata dataset: \(escape(message))</p>
+        <p>Unable to preview this data file: \(escape(message))</p>
         </body>
         </html>
         """
@@ -272,5 +272,5 @@ public final class DtaPreviewProvider: QLPreviewProvider, QLPreviewingController
 private struct PreviewColumn {
     let name: String
     let label: String
-    let type: DtaColType
+    let type: DataColType
 }

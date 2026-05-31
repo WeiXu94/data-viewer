@@ -1,0 +1,513 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F687E8B5F6DDDF5466CE7BCF /* data_core.c in Sources */ = {isa = PBXBuildFile; fileRef = 5E8071E195B7E8CC42295525 /* data_core.c */; };
+		ABA3FC20E369570A87159A95 /* CKHashTable.c in Sources */ = {isa = PBXBuildFile; fileRef = E09719163C717E2C4E80EEED /* CKHashTable.c */; };
+		3F9BE932F9A50E0A38183114 /* rdata_bits.c in Sources */ = {isa = PBXBuildFile; fileRef = 220EA0E79AB4C6E5169BC953 /* rdata_bits.c */; };
+		7D4B97C22A2D4401B829145D /* rdata_error.c in Sources */ = {isa = PBXBuildFile; fileRef = 6BA0AFFF29F1E020D3946C7C /* rdata_error.c */; };
+		8F269BAD5B7E51CA9B4FEC36 /* rdata_io_unistd.c in Sources */ = {isa = PBXBuildFile; fileRef = B7856047713D7D6BFF874952 /* rdata_io_unistd.c */; };
+		33B3F543FFE2CBD3C0CFD157 /* rdata_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = CEF6A103D9F35619312CB94B /* rdata_parser.c */; };
+		7F2CD903F3DD44F17A1C728A /* rdata_read.c in Sources */ = {isa = PBXBuildFile; fileRef = 60C078EB96A9E15A824E172A /* rdata_read.c */; };
+		F703EE856E3469714041DE63 /* rdata_write.c in Sources */ = {isa = PBXBuildFile; fileRef = DFA97126B3694D1BCF9DC478 /* rdata_write.c */; };
+		E0E66AA90AC7BCC261DBC425 /* endian.c in Sources */ = {isa = PBXBuildFile; fileRef = 541B1DDBA689BFC4C407C951 /* endian.c */; };
+		C5BEB3DCD701D6972E6AC0C6 /* inflate.c in Sources */ = {isa = PBXBuildFile; fileRef = 9CEEB848135D2729E3E9C94D /* inflate.c */; };
+		DD76A02CD646E796F4741530 /* io.c in Sources */ = {isa = PBXBuildFile; fileRef = B1CF6D3141127071F439F66D /* io.c */; };
+		8A474CCD6F3321D901DA6C40 /* mat.c in Sources */ = {isa = PBXBuildFile; fileRef = 4ED1EF3EFC5093747D4C077F /* mat.c */; };
+		9B9C6BA971D77369837A26B6 /* mat4.c in Sources */ = {isa = PBXBuildFile; fileRef = BF38930C0351A580C9491F54 /* mat4.c */; };
+		7F04BD93B6CD697FDB85E2AB /* mat5.c in Sources */ = {isa = PBXBuildFile; fileRef = 4445926C969BF644094428AD /* mat5.c */; };
+		1555C046F85BF66621950341 /* matvar_cell.c in Sources */ = {isa = PBXBuildFile; fileRef = D079BEE27FE9DC7360DCAFC4 /* matvar_cell.c */; };
+		D81E7C6E305994234776EDD7 /* matvar_struct.c in Sources */ = {isa = PBXBuildFile; fileRef = 678433D5CA56E001F4AD0C0E /* matvar_struct.c */; };
+		D6B696460038BFBB870EDA2C /* read_data.c in Sources */ = {isa = PBXBuildFile; fileRef = 66B9A1AF509255E3F70BAD26 /* read_data.c */; };
+		F19C9EF29F500472A22C8C59 /* readstat_bits.c in Sources */ = {isa = PBXBuildFile; fileRef = CF358DAC7F4AC843C3A796A5 /* readstat_bits.c */; };
+		7A90D12EEF3EB935E30AC435 /* readstat_convert.c in Sources */ = {isa = PBXBuildFile; fileRef = 981640B9CF3CCCAA18879D64 /* readstat_convert.c */; };
+		DF02E6E518C723FF1E186FDB /* readstat_error.c in Sources */ = {isa = PBXBuildFile; fileRef = E481EF0B9ADFDB029161A64F /* readstat_error.c */; };
+		43C92D5E91B2B2FE35D8616A /* readstat_io_unistd.c in Sources */ = {isa = PBXBuildFile; fileRef = FB975C2757BC560E86AFDA05 /* readstat_io_unistd.c */; };
+		F6AD7F045B26AFFF3B69AF80 /* readstat_malloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 5D76D91B095D80A69355C342 /* readstat_malloc.c */; };
+		63E57FDFC1B3D85A2735F377 /* readstat_metadata.c in Sources */ = {isa = PBXBuildFile; fileRef = B3DB80872B247CD69888435E /* readstat_metadata.c */; };
+		29A273856F026775992C6196 /* readstat_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = F86A66B842EDC7EC7667C704 /* readstat_parser.c */; };
+		E3275C71EC2E919EDE3B1F9C /* readstat_value.c in Sources */ = {isa = PBXBuildFile; fileRef = 930D1284B24E968A79BD5482 /* readstat_value.c */; };
+		3B82805D5064311668862DCD /* readstat_variable.c in Sources */ = {isa = PBXBuildFile; fileRef = 7F45D5AF3A303EE63ED9C715 /* readstat_variable.c */; };
+		76CDD6986AA7B8F17F277B6E /* stata/readstat_dta.c in Sources */ = {isa = PBXBuildFile; fileRef = 30847A966130B7C76B1A2D2C /* stata/readstat_dta.c */; };
+		FB5C03A9E906BC0F1ABE143A /* stata/readstat_dta_read.c in Sources */ = {isa = PBXBuildFile; fileRef = 892EC8DEE700AD259A9706AD /* stata/readstat_dta_read.c */; };
+		CE5195D0075AA58AEE04A086 /* stata/readstat_dta_parse_timestamp.c in Sources */ = {isa = PBXBuildFile; fileRef = A64C52879467FFD69F20D10A /* stata/readstat_dta_parse_timestamp.c */; };
+		6D925D02C20C5E1827C776DB /* DataPreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB4F6D633F800BE94F39434 /* DataPreviewProvider.swift */; };
+		289FDFCEB22753DE5FB9DEA0 /* ExtensionMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67A3DC4F7744F41E39B64A2 /* ExtensionMain.swift */; };
+
+
+/* Begin PBXFileReference section */
+		5E8071E195B7E8CC42295525 /* data_core.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = data_core.c; sourceTree = "<group>"; };
+		E09719163C717E2C4E80EEED /* CKHashTable.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = CKHashTable.c; sourceTree = "<group>"; };
+		220EA0E79AB4C6E5169BC953 /* rdata_bits.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rdata_bits.c; sourceTree = "<group>"; };
+		6BA0AFFF29F1E020D3946C7C /* rdata_error.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rdata_error.c; sourceTree = "<group>"; };
+		B7856047713D7D6BFF874952 /* rdata_io_unistd.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rdata_io_unistd.c; sourceTree = "<group>"; };
+		CEF6A103D9F35619312CB94B /* rdata_parser.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rdata_parser.c; sourceTree = "<group>"; };
+		60C078EB96A9E15A824E172A /* rdata_read.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rdata_read.c; sourceTree = "<group>"; };
+		DFA97126B3694D1BCF9DC478 /* rdata_write.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rdata_write.c; sourceTree = "<group>"; };
+		541B1DDBA689BFC4C407C951 /* endian.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = endian.c; sourceTree = "<group>"; };
+		9CEEB848135D2729E3E9C94D /* inflate.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = inflate.c; sourceTree = "<group>"; };
+		B1CF6D3141127071F439F66D /* io.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = io.c; sourceTree = "<group>"; };
+		4ED1EF3EFC5093747D4C077F /* mat.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = mat.c; sourceTree = "<group>"; };
+		BF38930C0351A580C9491F54 /* mat4.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = mat4.c; sourceTree = "<group>"; };
+		4445926C969BF644094428AD /* mat5.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = mat5.c; sourceTree = "<group>"; };
+		D079BEE27FE9DC7360DCAFC4 /* matvar_cell.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = matvar_cell.c; sourceTree = "<group>"; };
+		678433D5CA56E001F4AD0C0E /* matvar_struct.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = matvar_struct.c; sourceTree = "<group>"; };
+		66B9A1AF509255E3F70BAD26 /* read_data.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = read_data.c; sourceTree = "<group>"; };
+		CF358DAC7F4AC843C3A796A5 /* readstat_bits.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = readstat_bits.c; sourceTree = "<group>"; };
+		981640B9CF3CCCAA18879D64 /* readstat_convert.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = readstat_convert.c; sourceTree = "<group>"; };
+		E481EF0B9ADFDB029161A64F /* readstat_error.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = readstat_error.c; sourceTree = "<group>"; };
+		FB975C2757BC560E86AFDA05 /* readstat_io_unistd.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = readstat_io_unistd.c; sourceTree = "<group>"; };
+		5D76D91B095D80A69355C342 /* readstat_malloc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = readstat_malloc.c; sourceTree = "<group>"; };
+		B3DB80872B247CD69888435E /* readstat_metadata.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = readstat_metadata.c; sourceTree = "<group>"; };
+		F86A66B842EDC7EC7667C704 /* readstat_parser.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = readstat_parser.c; sourceTree = "<group>"; };
+		930D1284B24E968A79BD5482 /* readstat_value.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = readstat_value.c; sourceTree = "<group>"; };
+		7F45D5AF3A303EE63ED9C715 /* readstat_variable.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = readstat_variable.c; sourceTree = "<group>"; };
+		30847A966130B7C76B1A2D2C /* stata/readstat_dta.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = stata/readstat_dta.c; sourceTree = "<group>"; };
+		892EC8DEE700AD259A9706AD /* stata/readstat_dta_read.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = stata/readstat_dta_read.c; sourceTree = "<group>"; };
+		A64C52879467FFD69F20D10A /* stata/readstat_dta_parse_timestamp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = stata/readstat_dta_parse_timestamp.c; sourceTree = "<group>"; };
+		ECB4F6D633F800BE94F39434 /* DataPreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPreviewProvider.swift; sourceTree = "<group>"; };
+		E67A3DC4F7744F41E39B64A2 /* ExtensionMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionMain.swift; sourceTree = "<group>"; };
+		0A0002010000000000000012 /* DataViewerQuickLookExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DataViewerQuickLookExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+
+
+/* Begin PBXFrameworksBuildPhase section */
+		0A0003010000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0A0004010000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				47E43E616B19B94ABA48400F /* DataCore */,
+				3FA942B0A12C3D196BC97C09 /* librdata */,
+				9F1E05CDDC8C482903C3F4A7 /* matio */,
+				0B5372D8EA5E15D6499B6C2F /* ReadStat */,
+				A19955207729F7F664970DBC /* QuickLook */,
+				0A0004010000000000000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		47E43E616B19B94ABA48400F /* DataCore */ = {
+			isa = PBXGroup;
+			children = (
+				5E8071E195B7E8CC42295525 /* data_core.c */,
+			);
+			name = DataCore;
+			path = ../core/src;
+			sourceTree = "<group>";
+		};
+		3FA942B0A12C3D196BC97C09 /* librdata */ = {
+			isa = PBXGroup;
+			children = (
+				E09719163C717E2C4E80EEED /* CKHashTable.c */,
+				220EA0E79AB4C6E5169BC953 /* rdata_bits.c */,
+				6BA0AFFF29F1E020D3946C7C /* rdata_error.c */,
+				B7856047713D7D6BFF874952 /* rdata_io_unistd.c */,
+				CEF6A103D9F35619312CB94B /* rdata_parser.c */,
+				60C078EB96A9E15A824E172A /* rdata_read.c */,
+				DFA97126B3694D1BCF9DC478 /* rdata_write.c */,
+			);
+			name = librdata;
+			path = ../core/librdata/src;
+			sourceTree = "<group>";
+		};
+		9F1E05CDDC8C482903C3F4A7 /* matio */ = {
+			isa = PBXGroup;
+			children = (
+				541B1DDBA689BFC4C407C951 /* endian.c */,
+				9CEEB848135D2729E3E9C94D /* inflate.c */,
+				B1CF6D3141127071F439F66D /* io.c */,
+				4ED1EF3EFC5093747D4C077F /* mat.c */,
+				BF38930C0351A580C9491F54 /* mat4.c */,
+				4445926C969BF644094428AD /* mat5.c */,
+				D079BEE27FE9DC7360DCAFC4 /* matvar_cell.c */,
+				678433D5CA56E001F4AD0C0E /* matvar_struct.c */,
+				66B9A1AF509255E3F70BAD26 /* read_data.c */,
+			);
+			name = matio;
+			path = ../core/matio/src;
+			sourceTree = "<group>";
+		};
+		0B5372D8EA5E15D6499B6C2F /* ReadStat */ = {
+			isa = PBXGroup;
+			children = (
+				CF358DAC7F4AC843C3A796A5 /* readstat_bits.c */,
+				981640B9CF3CCCAA18879D64 /* readstat_convert.c */,
+				E481EF0B9ADFDB029161A64F /* readstat_error.c */,
+				FB975C2757BC560E86AFDA05 /* readstat_io_unistd.c */,
+				5D76D91B095D80A69355C342 /* readstat_malloc.c */,
+				B3DB80872B247CD69888435E /* readstat_metadata.c */,
+				F86A66B842EDC7EC7667C704 /* readstat_parser.c */,
+				930D1284B24E968A79BD5482 /* readstat_value.c */,
+				7F45D5AF3A303EE63ED9C715 /* readstat_variable.c */,
+				30847A966130B7C76B1A2D2C /* stata/readstat_dta.c */,
+				892EC8DEE700AD259A9706AD /* stata/readstat_dta_read.c */,
+				A64C52879467FFD69F20D10A /* stata/readstat_dta_parse_timestamp.c */,
+			);
+			name = ReadStat;
+			path = ../core/readstat/src;
+			sourceTree = "<group>";
+		};
+		A19955207729F7F664970DBC /* QuickLook */ = {
+			isa = PBXGroup;
+			children = (
+				ECB4F6D633F800BE94F39434 /* DataPreviewProvider.swift */,
+				E67A3DC4F7744F41E39B64A2 /* ExtensionMain.swift */,
+			);
+			name = QuickLook;
+			path = .;
+			sourceTree = "<group>";
+		};
+0A0004010000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0A0002010000000000000012 /* DataViewerQuickLookExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+
+
+/* Begin PBXNativeTarget section */
+		0A0005010000000000000001 /* DataViewerQuickLookExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A0009010000000000000002 /* Build configuration list for PBXNativeTarget "DataViewerQuickLookExtension" */;
+			buildPhases = (
+				0A0006010000000000000001 /* Sources */,
+				0A0003010000000000000001 /* Frameworks */,
+				0A0007010000000000000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DataViewerQuickLookExtension;
+			productName = DataViewerQuickLookExtension;
+			productReference = 0A0002010000000000000012 /* DataViewerQuickLookExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0A0008010000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2620;
+				LastUpgradeCheck = 2620;
+				TargetAttributes = {
+					0A0005010000000000000001 = {
+						CreatedOnToolsVersion = 26.2;
+					};
+				};
+			};
+			buildConfigurationList = 0A0009010000000000000001 /* Build configuration list for PBXProject "DataViewerQuickLookExtension" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0A0004010000000000000001;
+			productRefGroup = 0A0004010000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0A0005010000000000000001 /* DataViewerQuickLookExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0A0007010000000000000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A0001010000000000000010 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0A0006010000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F687E8B5F6DDDF5466CE7BCF /* data_core.c in Sources */,
+				ABA3FC20E369570A87159A95 /* CKHashTable.c in Sources */,
+				3F9BE932F9A50E0A38183114 /* rdata_bits.c in Sources */,
+				7D4B97C22A2D4401B829145D /* rdata_error.c in Sources */,
+				8F269BAD5B7E51CA9B4FEC36 /* rdata_io_unistd.c in Sources */,
+				33B3F543FFE2CBD3C0CFD157 /* rdata_parser.c in Sources */,
+				7F2CD903F3DD44F17A1C728A /* rdata_read.c in Sources */,
+				F703EE856E3469714041DE63 /* rdata_write.c in Sources */,
+				E0E66AA90AC7BCC261DBC425 /* endian.c in Sources */,
+				C5BEB3DCD701D6972E6AC0C6 /* inflate.c in Sources */,
+				DD76A02CD646E796F4741530 /* io.c in Sources */,
+				8A474CCD6F3321D901DA6C40 /* mat.c in Sources */,
+				9B9C6BA971D77369837A26B6 /* mat4.c in Sources */,
+				7F04BD93B6CD697FDB85E2AB /* mat5.c in Sources */,
+				1555C046F85BF66621950341 /* matvar_cell.c in Sources */,
+				D81E7C6E305994234776EDD7 /* matvar_struct.c in Sources */,
+				D6B696460038BFBB870EDA2C /* read_data.c in Sources */,
+				F19C9EF29F500472A22C8C59 /* readstat_bits.c in Sources */,
+				7A90D12EEF3EB935E30AC435 /* readstat_convert.c in Sources */,
+				DF02E6E518C723FF1E186FDB /* readstat_error.c in Sources */,
+				43C92D5E91B2B2FE35D8616A /* readstat_io_unistd.c in Sources */,
+				F6AD7F045B26AFFF3B69AF80 /* readstat_malloc.c in Sources */,
+				63E57FDFC1B3D85A2735F377 /* readstat_metadata.c in Sources */,
+				29A273856F026775992C6196 /* readstat_parser.c in Sources */,
+				E3275C71EC2E919EDE3B1F9C /* readstat_value.c in Sources */,
+				3B82805D5064311668862DCD /* readstat_variable.c in Sources */,
+				76CDD6986AA7B8F17F277B6E /* stata/readstat_dta.c in Sources */,
+				FB5C03A9E906BC0F1ABE143A /* stata/readstat_dta_read.c in Sources */,
+				CE5195D0075AA58AEE04A086 /* stata/readstat_dta_parse_timestamp.c in Sources */,
+				6D925D02C20C5E1827C776DB /* DataPreviewProvider.swift in Sources */,
+				289FDFCEB22753DE5FB9DEA0 /* ExtensionMain.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0A000A010000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		0A000A010000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0A000A010000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = "$(SRCROOT)/../.build/appex_entitlements.plist";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../core/include",
+					"$(SRCROOT)/../core/librdata/src",
+					"$(SRCROOT)/../core/matio/src",
+					"$(SRCROOT)/../core/readstat/src",
+					"$(SRCROOT)/../core/readstat/src/stata",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/../resources/DataViewerQuickLookExtension.appex/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+								MARKETING_VERSION = 1.5.1;
+				MODULEMAP_FILE = "$(SRCROOT)/../core/include/module.modulemap";
+				OTHER_LDFLAGS = (
+					"-lz",
+					"-liconv",
+					"-lm",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"HAVE_ZLIB=1",
+					"HAVE_BZIP2=0",
+					"HAVE_APPLE_COMPRESSION=0",
+					"HAVE_LZMA=0",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.weixu.DataViewer.QuickLookExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/../core/include";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		0A000A010000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = "$(SRCROOT)/../.build/appex_entitlements.plist";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../core/include",
+					"$(SRCROOT)/../core/librdata/src",
+					"$(SRCROOT)/../core/matio/src",
+					"$(SRCROOT)/../core/readstat/src",
+					"$(SRCROOT)/../core/readstat/src/stata",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/../resources/DataViewerQuickLookExtension.appex/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+								MARKETING_VERSION = 1.5.1;
+				MODULEMAP_FILE = "$(SRCROOT)/../core/include/module.modulemap";
+				OTHER_LDFLAGS = (
+					"-lz",
+					"-liconv",
+					"-lm",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"HAVE_ZLIB=1",
+					"HAVE_BZIP2=0",
+					"HAVE_APPLE_COMPRESSION=0",
+					"HAVE_LZMA=0",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.weixu.DataViewer.QuickLookExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/../core/include";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0A0009010000000000000001 /* Build configuration list for PBXProject "DataViewerQuickLookExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A000A010000000000000001 /* Debug */,
+				0A000A010000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0A0009010000000000000002 /* Build configuration list for PBXNativeTarget "DataViewerQuickLookExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A000A010000000000000003 /* Debug */,
+				0A000A010000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0A0008010000000000000001 /* Project object */;
+}

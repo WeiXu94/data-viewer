@@ -32,9 +32,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         panel.canChooseFiles = true
         panel.canChooseDirectories = false
         panel.allowsMultipleSelection = false
-        if let dtaType = UTType(filenameExtension: "dta") {
-            panel.allowedContentTypes = [dtaType]
-        }
+        panel.allowedContentTypes = ["dta", "rds", "mat"].compactMap { UTType(filenameExtension: $0) }
 
         if panel.runModal() == .OK, let url = panel.url {
             mainWindowController?.open(url: url)

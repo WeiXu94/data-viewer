@@ -9,8 +9,8 @@ let package = Package(
     ],
     products: [
         .executable(name: "DataViewer", targets: ["DataViewer"]),
-        .executable(name: "dta-inspect", targets: ["DtaInspect"]),
-        .executable(name: "DtaQuickLookPreview", targets: ["DtaQuickLookPreview"])
+        .executable(name: "data-inspect", targets: ["DataInspect"]),
+        .executable(name: "DataViewerQuickLookExtension", targets: ["DataViewerQuickLookExtension"])
     ],
     targets: [
         .target(
@@ -27,18 +27,29 @@ let package = Package(
             ]
         ),
         .target(
-            name: "DtaCore",
+            name: "DataCore",
             dependencies: ["ReadStat"],
             path: "core",
             exclude: ["readstat"],
             publicHeadersPath: "include",
             cSettings: [
-                .headerSearchPath("include")
+                .headerSearchPath("include"),
+                .headerSearchPath("librdata/src"),
+                .headerSearchPath("matio/src"),
+                .define("HAVE_ZLIB", to: "1"),
+                .define("HAVE_BZIP2", to: "0"),
+                .define("HAVE_APPLE_COMPRESSION", to: "0"),
+                .define("HAVE_LZMA", to: "0")
+            ],
+            linkerSettings: [
+                .linkedLibrary("z"),
+                .linkedLibrary("iconv"),
+                .linkedLibrary("m")
             ]
         ),
         .executableTarget(
             name: "DataViewer",
-            dependencies: ["DtaCore"],
+            dependencies: ["DataCore"],
             path: "app",
             linkerSettings: [
                 .linkedFramework("AppKit"),
@@ -46,13 +57,13 @@ let package = Package(
             ]
         ),
         .executableTarget(
-            name: "DtaInspect",
-            dependencies: ["DtaCore"],
-            path: "tools/DtaInspect"
+            name: "DataInspect",
+            dependencies: ["DataCore"],
+            path: "tools/DataInspect"
         ),
         .executableTarget(
-            name: "DtaQuickLookPreview",
-            dependencies: ["DtaCore"],
+            name: "DataViewerQuickLookExtension",
+            dependencies: ["DataCore"],
             path: "quicklook",
             linkerSettings: [
                 .linkedFramework("Foundation"),
@@ -61,11 +72,16 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "DtaCoreTests",
-            dependencies: ["DtaCore"],
+            name: "DataCoreTests",
+            dependencies: ["DataCore"],
             path: "tests",
+            exclude: [
+                "fixtures/Vietnam-2009-full-data.dta"
+            ],
             resources: [
-                .copy("fixtures/auto.dta")
+                .copy("fixtures/auto.dta"),
+                .copy("fixtures/sample.rds"),
+                .copy("fixtures/sample.mat")
             ]
         )
     ]

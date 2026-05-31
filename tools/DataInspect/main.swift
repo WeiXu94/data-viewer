@@ -1,5 +1,5 @@
 import Foundation
-import DtaCore
+import DataCore
 
 func cString(_ pointer: UnsafeMutablePointer<CChar>?) -> String {
     guard let pointer else {
@@ -9,7 +9,7 @@ func cString(_ pointer: UnsafeMutablePointer<CChar>?) -> String {
 }
 
 func printUsageAndExit() -> Never {
-    fputs("Usage: dta-inspect <file.dta> [rows]\n", stderr)
+    fputs("Usage: data-inspect <file.dta|file.rds|file.mat> [rows]\n", stderr)
     exit(2)
 }
 
@@ -21,15 +21,15 @@ guard let path = arguments.first else {
 let rowsToPrint = arguments.dropFirst().first.flatMap(Int.init) ?? 5
 var errorCode: Int32 = 0
 
-guard let doc = dta_open(path, &errorCode) else {
-    fputs("open failed: \(String(cString: dta_error_message(errorCode)))\n", stderr)
+guard let doc = data_open(path, &errorCode) else {
+    fputs("open failed: \(String(cString: data_error_message(errorCode)))\n", stderr)
     exit(1)
 }
 defer {
-    dta_close(doc)
+    data_close(doc)
 }
 
-guard let metaPointer = dta_metadata(doc) else {
+guard let metaPointer = data_metadata(doc) else {
     fputs("metadata unavailable\n", stderr)
     exit(1)
 }
@@ -43,15 +43,15 @@ print("label: \(cString(meta.dataset_label))")
 if let columns = meta.columns {
     for index in 0..<Int(meta.col_count) {
         let column = columns[index]
-        let type = column.type == DTA_NUMERIC ? "numeric" : "string"
+        let type = column.type == DATA_NUMERIC ? "numeric" : "string"
         print("column[\(index)]: \(cString(column.name)) \(type) \(cString(column.format)) \(cString(column.label))")
     }
 }
 
 let limitedRows = max(0, min(rowsToPrint, Int(meta.row_count)))
-if limitedRows > 0, let chunk = dta_fetch(doc, 0, Int32(limitedRows)) {
+if limitedRows > 0, let chunk = data_fetch(doc, 0, Int32(limitedRows)) {
     defer {
-        dta_chunk_free(chunk)
+        data_chunk_free(chunk)
     }
 
     print("preview:")
@@ -67,5 +67,5 @@ if limitedRows > 0, let chunk = dta_fetch(doc, 0, Int32(limitedRows)) {
     }
 }
 
-let stats = dta_cache_stats(doc)
+let stats = data_cache_stats(doc)
 print("cache: chunks=\(stats.cached_chunks) hits=\(stats.hits) misses=\(stats.misses)")

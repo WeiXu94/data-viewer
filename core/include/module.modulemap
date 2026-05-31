@@ -1,0 +1,4 @@
+module DataCore {
+    header "data_core.h"
+    export *
+}

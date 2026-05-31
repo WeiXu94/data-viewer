@@ -20,15 +20,16 @@
     <array>
         <dict>
             <key>CFBundleTypeName</key>
-            <string>Stata Dataset</string>
+            <string>Dataset</string>
             <key>CFBundleTypeRole</key>
             <string>Viewer</string>
             <key>LSHandlerRank</key>
             <string>Owner</string>
             <key>LSItemContentTypes</key>
             <array>
-                <string>com.stata.stata.data</string>
                 <string>com.stata.dta</string>
+                <string>org.r-project.rds</string>
+                <string>com.mathworks.mat-file</string>
             </array>
         </dict>
     </array>
@@ -46,7 +47,7 @@
             <key>UTTypeDescription</key>
             <string>Stata Dataset</string>
             <key>UTTypeIdentifier</key>
-            <string>com.stata.stata.data</string>
+            <string>com.stata.dta</string>
             <key>UTTypeTagSpecification</key>
             <dict>
                 <key>public.filename-extension</key>
@@ -63,17 +64,36 @@
                 <string>public.data</string>
             </array>
             <key>UTTypeDescription</key>
-            <string>Stata Dataset</string>
+            <string>R Serialized Object</string>
             <key>UTTypeIdentifier</key>
-            <string>com.stata.dta</string>
+            <string>org.r-project.rds</string>
             <key>UTTypeTagSpecification</key>
             <dict>
                 <key>public.filename-extension</key>
                 <array>
-                    <string>dta</string>
+                    <string>rds</string>
                 </array>
                 <key>public.mime-type</key>
-                <string>application/x-stata-dta</string>
+                <string>application/x-r-rds</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>UTTypeConformsTo</key>
+            <array>
+                <string>public.data</string>
+            </array>
+            <key>UTTypeDescription</key>
+            <string>MATLAB MAT File</string>
+            <key>UTTypeIdentifier</key>
+            <string>com.mathworks.mat-file</string>
+            <key>UTTypeTagSpecification</key>
+            <dict>
+                <key>public.filename-extension</key>
+                <array>
+                    <string>mat</string>
+                </array>
+                <key>public.mime-type</key>
+                <string>application/x-matlab-data</string>
             </dict>
         </dict>
     </array>

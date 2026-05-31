@@ -1,15 +1,15 @@
 import Foundation
-import DtaCore
+import DataCore
 
-struct DtaColumnInfo {
+struct DataColumnInfo {
     let index: Int
     let name: String
     let label: String
-    let type: DtaColType
+    let type: DataColType
     let format: String
 }
 
-enum DtaDocumentError: LocalizedError {
+enum DataDocumentError: LocalizedError {
     case openFailed(String)
     case metadataUnavailable
 
@@ -23,46 +23,46 @@ enum DtaDocumentError: LocalizedError {
     }
 }
 
-final class DtaDocument {
+final class DataDocument {
     let url: URL
     let rowCount: Int64
-    let columns: [DtaColumnInfo]
+    let columns: [DataColumnInfo]
     let datasetLabel: String
 
     private let handle: OpaquePointer
     private let swiftChunkSize: Int32 = 1000
-    private var currentChunk: UnsafeMutablePointer<DtaChunk>?
+    private var currentChunk: UnsafeMutablePointer<DataChunk>?
 
     init(url: URL) throws {
         self.url = url
 
         var errorCode: Int32 = 0
-        guard let opened = dta_open(url.path, &errorCode) else {
-            let message = String(cString: dta_error_message(errorCode))
-            throw DtaDocumentError.openFailed(message)
+        guard let opened = data_open(url.path, &errorCode) else {
+            let message = String(cString: data_error_message(errorCode))
+            throw DataDocumentError.openFailed(message)
         }
         handle = opened
 
-        guard let metaPointer = dta_metadata(opened) else {
-            dta_close(opened)
-            throw DtaDocumentError.metadataUnavailable
+        guard let metaPointer = data_metadata(opened) else {
+            data_close(opened)
+            throw DataDocumentError.metadataUnavailable
         }
 
         let meta = metaPointer.pointee
         rowCount = meta.row_count
-        datasetLabel = DtaDocument.string(from: meta.dataset_label)
+        datasetLabel = DataDocument.string(from: meta.dataset_label)
 
-        var parsedColumns: [DtaColumnInfo] = []
+        var parsedColumns: [DataColumnInfo] = []
         if let columnPointer = meta.columns {
             for index in 0..<Int(meta.col_count) {
                 let column = columnPointer[index]
                 parsedColumns.append(
-                    DtaColumnInfo(
+                    DataColumnInfo(
                         index: Int(column.index),
-                        name: DtaDocument.string(from: column.name),
-                        label: DtaDocument.string(from: column.label),
+                        name: DataDocument.string(from: column.name),
+                        label: DataDocument.string(from: column.label),
                         type: column.type,
-                        format: DtaDocument.string(from: column.format)
+                        format: DataDocument.string(from: column.format)
                     )
                 )
             }
@@ -72,9 +72,9 @@ final class DtaDocument {
 
     deinit {
         if let currentChunk {
-            dta_chunk_free(currentChunk)
+            data_chunk_free(currentChunk)
         }
-        dta_close(handle)
+        data_close(handle)
     }
 
     func cell(row: Int, column: Int) -> String? {
@@ -102,7 +102,7 @@ final class DtaDocument {
     }
 
     func cacheStatsSummary() -> String {
-        let stats = dta_cache_stats(handle)
+        let stats = data_cache_stats(handle)
         return "cache \(stats.cached_chunks) chunks, \(stats.hits) hits, \(stats.misses) misses"
     }
 
@@ -115,12 +115,12 @@ final class DtaDocument {
         }
 
         if let currentChunk {
-            dta_chunk_free(currentChunk)
+            data_chunk_free(currentChunk)
             self.currentChunk = nil
         }
 
         let offset = (Int64(row) / Int64(swiftChunkSize)) * Int64(swiftChunkSize)
-        guard let fetched = dta_fetch(handle, offset, swiftChunkSize) else {
+        guard let fetched = data_fetch(handle, offset, swiftChunkSize) else {
             return false
         }
         currentChunk = fetched

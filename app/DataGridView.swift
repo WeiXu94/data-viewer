@@ -1,5 +1,5 @@
 import AppKit
-import DtaCore
+import DataCore
 
 /// Geometry + type for one grid column.
 private struct GridColumn {
@@ -15,7 +15,7 @@ private struct GridColumn {
 /// dirty rect straight from the in-memory cache. This is the approach the
 /// Stata/Excel/Numbers grids use, and it stays smooth with hundreds of columns.
 final class DataGridView: NSView {
-    private weak var document: DtaDocument?
+    private weak var document: DataDocument?
     fileprivate private(set) var columns: [GridColumn] = []
     private(set) var contentWidth: CGFloat = 0
 
@@ -51,14 +51,14 @@ final class DataGridView: NSView {
         ]
     }
 
-    func load(document: DtaDocument) {
+    func load(document: DataDocument) {
         self.document = document
         rowCount = Int(min(document.rowCount, Int64(Int.max)))
 
         var x: CGFloat = 0
         columns = document.columns.map { info in
             let titleWidth = CGFloat(info.name.count) * 8 + 2 * cellInset + 6
-            let isNumeric = info.type == DTA_NUMERIC
+            let isNumeric = info.type == DATA_NUMERIC
             let width = max(isNumeric ? 80 : 100, min(260, titleWidth)).rounded()
             let column = GridColumn(index: info.index, title: info.name,
                                     isNumeric: isNumeric, width: width, x: x)

@@ -1,13 +1,16 @@
 import AppKit
-import DtaCore
+import DataCore
 
-final class TableViewController: NSViewController {
+final class TableViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
     private let gridView = DataGridView()
     private let gridHeader = DataGridHeaderView()
     private let gridScrollView = NSScrollView()
-    private let variableSidebarView = VariableSidebarView()
-    private let statusLabel = NSTextField(labelWithString: "Open a .dta file")
-    private var document: DtaDocument?
+    private let variablesTableView = NSTableView()
+    private let sidebarTitle = NSTextField(labelWithString: "Variables")
+    private let statusLabel = NSTextField(labelWithString: "Open a .dta, .rds, or .mat file")
+    private var document: DataDocument?
+
+    private static let variableFont = NSFont.systemFont(ofSize: 12)
 
     override func loadView() {
         // A fixed-width sidebar beside a flexible table area, with a status bar
@@ -71,14 +74,14 @@ final class TableViewController: NSViewController {
     }
 
     func open(url: URL) throws {
-        let opened = try DtaDocument(url: url)
+        let opened = try DataDocument(url: url)
         document = opened
         gridView.load(document: opened)
         gridScrollView.contentView.scroll(to: .zero)
         gridScrollView.reflectScrolledClipView(gridScrollView.contentView)
         gridHeader.xOffset = 0
         gridHeader.needsDisplay = true
-        variableSidebarView.load(columns: opened.columns)
+        variablesTableView.reloadData()
         let status = statusText(for: opened)
         statusLabel.stringValue = status
         statusLabel.toolTip = status
@@ -88,9 +91,65 @@ final class TableViewController: NSViewController {
         gridHeader.xOffset = gridScrollView.contentView.bounds.origin.x
     }
 
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        document?.columns.count ?? 0
+    }
+
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        variableCell(row: row)
+    }
+
     private func buildSidebar() -> NSView {
-        variableSidebarView.translatesAutoresizingMaskIntoConstraints = false
-        return variableSidebarView
+        let sidebar = NSView()
+        sidebar.translatesAutoresizingMaskIntoConstraints = false
+        sidebar.wantsLayer = true
+        sidebar.layer?.backgroundColor = NSColor.controlBackgroundColor.cgColor
+
+        sidebarTitle.font = .systemFont(ofSize: 13, weight: .semibold)
+        sidebarTitle.translatesAutoresizingMaskIntoConstraints = false
+
+        variablesTableView.headerView = nil
+        variablesTableView.dataSource = self
+        variablesTableView.delegate = self
+        variablesTableView.rowSizeStyle = .custom
+        variablesTableView.rowHeight = 24
+        variablesTableView.usesAutomaticRowHeights = false
+        variablesTableView.selectionHighlightStyle = .regular
+        variablesTableView.backgroundColor = .controlBackgroundColor
+        variablesTableView.intercellSpacing = NSSize(width: 0, height: 0)
+        variablesTableView.autoresizingMask = [.width]
+
+        let variableColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("variable"))
+        variableColumn.width = 220
+        variableColumn.minWidth = 80
+        variableColumn.resizingMask = [.autoresizingMask]
+        variablesTableView.addTableColumn(variableColumn)
+
+        let scrollView = NSScrollView()
+        scrollView.documentView = variablesTableView
+        scrollView.hasVerticalScroller = true
+        scrollView.hasHorizontalScroller = false
+        scrollView.autohidesScrollers = true
+        scrollView.borderType = .noBorder
+        scrollView.drawsBackground = true
+        scrollView.backgroundColor = .controlBackgroundColor
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+
+        sidebar.addSubview(sidebarTitle)
+        sidebar.addSubview(scrollView)
+
+        NSLayoutConstraint.activate([
+            sidebarTitle.leadingAnchor.constraint(equalTo: sidebar.leadingAnchor, constant: 20),
+            sidebarTitle.trailingAnchor.constraint(equalTo: sidebar.trailingAnchor, constant: -12),
+            sidebarTitle.topAnchor.constraint(equalTo: sidebar.topAnchor, constant: 10),
+
+            scrollView.leadingAnchor.constraint(equalTo: sidebar.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: sidebar.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: sidebarTitle.bottomAnchor, constant: 8),
+            scrollView.bottomAnchor.constraint(equalTo: sidebar.bottomAnchor)
+        ])
+
+        return sidebar
     }
 
     private func buildTableArea() -> NSView {
@@ -132,11 +191,48 @@ final class TableViewController: NSViewController {
         return container
     }
 
-    private func statusText(for document: DtaDocument) -> String {
+    private func statusText(for document: DataDocument) -> String {
         let obs = Self.countFormatter.string(from: NSNumber(value: document.rowCount)) ?? "\(document.rowCount)"
         let vars = Self.countFormatter.string(from: NSNumber(value: document.columns.count)) ?? "\(document.columns.count)"
         let label = document.datasetLabel.isEmpty ? "" : " — \(document.datasetLabel)"
         return "\(obs) obs × \(vars) vars\(label)"
+    }
+
+    private func variableCell(row: Int) -> NSView? {
+        guard let document, row < document.columns.count else {
+            return nil
+        }
+
+        let identifier = NSUserInterfaceItemIdentifier("VariableCell")
+        let cellView: NSTableCellView
+        if let recycled = variablesTableView.makeView(withIdentifier: identifier, owner: self) as? NSTableCellView {
+            cellView = recycled
+        } else {
+            cellView = NSTableCellView()
+            cellView.identifier = identifier
+
+            let field = NSTextField(labelWithString: "")
+            field.translatesAutoresizingMaskIntoConstraints = false
+            field.font = Self.variableFont
+            field.lineBreakMode = .byTruncatingTail
+            field.maximumNumberOfLines = 1
+            field.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+
+            cellView.addSubview(field)
+            cellView.textField = field
+
+            NSLayoutConstraint.activate([
+                field.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 20),
+                field.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -8),
+                field.centerYAnchor.constraint(equalTo: cellView.centerYAnchor)
+            ])
+        }
+
+        let column = document.columns[row]
+        let text = column.label.isEmpty ? column.name : "\(column.name) - \(column.label)"
+        cellView.textField?.stringValue = text
+        cellView.textField?.toolTip = text
+        return cellView
     }
 
     private static let countFormatter: NumberFormatter = {
@@ -144,151 +240,4 @@ final class TableViewController: NSViewController {
         formatter.numberStyle = .decimal
         return formatter
     }()
-}
-
-final class VariableSidebarView: NSView {
-    private struct Row {
-        let text: String
-    }
-
-    private var rows: [Row] = []
-    private let rowHeight: CGFloat = 24
-    private let horizontalInset: CGFloat = 20
-    private let titleTopInset: CGFloat = 10
-    private let titleHeight: CGFloat = 18
-    private let rowTopInset: CGFloat = 36
-    private var scrollOffset: CGFloat = 0
-
-    override init(frame frameRect: NSRect) {
-        super.init(frame: frameRect)
-        wantsLayer = true
-        layerContentsRedrawPolicy = .onSetNeedsDisplay
-    }
-
-    convenience init() {
-        self.init(frame: .zero)
-    }
-
-    required init?(coder: NSCoder) {
-        nil
-    }
-
-    override var isFlipped: Bool { true }
-    override var isOpaque: Bool { true }
-
-    private lazy var titleAttributes: [NSAttributedString.Key: Any] = [
-        .font: NSFont.systemFont(ofSize: 13, weight: .semibold),
-        .foregroundColor: NSColor.labelColor
-    ]
-
-    private lazy var attributes: [NSAttributedString.Key: Any] = {
-        let style = NSMutableParagraphStyle()
-        style.lineBreakMode = .byTruncatingTail
-        return [
-            .font: NSFont.systemFont(ofSize: 12),
-            .foregroundColor: NSColor.labelColor,
-            .paragraphStyle: style
-        ]
-    }()
-
-    func load(columns: [DtaColumnInfo]) {
-        scrollOffset = 0
-        rows = columns.map { column in
-            if column.label.isEmpty {
-                return Row(text: column.name)
-            }
-            return Row(text: "\(column.name) - \(column.label)")
-        }
-
-        needsDisplay = true
-    }
-
-    override func draw(_ dirtyRect: NSRect) {
-        NSGraphicsContext.saveGraphicsState()
-        defer { NSGraphicsContext.restoreGraphicsState() }
-        NSBezierPath(rect: bounds).setClip()
-
-        NSColor.controlBackgroundColor.setFill()
-        bounds.fill()
-
-        let titleRect = NSRect(
-            x: horizontalInset,
-            y: titleTopInset,
-            width: max(0, bounds.width - horizontalInset * 2),
-            height: titleHeight
-        )
-        ("Variables" as NSString).draw(in: titleRect, withAttributes: titleAttributes)
-
-        guard !rows.isEmpty else { return }
-
-        let visibleTop = max(0, dirtyRect.minY - rowTopInset + scrollOffset)
-        let visibleBottom = max(0, dirtyRect.maxY - rowTopInset + scrollOffset)
-        let firstRow = max(0, Int((visibleTop / rowHeight).rounded(.down)))
-        let lastRow = min(rows.count - 1, Int((visibleBottom / rowHeight).rounded(.up)))
-        guard firstRow <= lastRow else { return }
-
-        if let alt = NSColor.alternatingContentBackgroundColors.dropFirst().first {
-            alt.withAlphaComponent(0.45).setFill()
-            for row in firstRow...lastRow where row % 2 == 1 {
-                NSRect(x: 0,
-                       y: rowTopInset + CGFloat(row) * rowHeight - scrollOffset,
-                       width: bounds.width, height: rowHeight).fill()
-            }
-        }
-
-        let lineHeight = NSFont.systemFont(ofSize: 12).boundingRectForFont.height
-        let textYInset = ((rowHeight - lineHeight) / 2).rounded()
-        for row in firstRow...lastRow {
-            let rect = NSRect(
-                x: horizontalInset,
-                y: rowTopInset + CGFloat(row) * rowHeight - scrollOffset + textYInset,
-                width: max(0, bounds.width - horizontalInset * 2),
-                height: lineHeight
-            )
-            (rows[row].text as NSString).draw(in: rect, withAttributes: attributes)
-        }
-
-        drawScrollThumb()
-    }
-
-    override func scrollWheel(with event: NSEvent) {
-        let delta = event.scrollingDeltaY == 0 ? event.deltaY * 10 : event.scrollingDeltaY
-        setScrollOffset(scrollOffset + delta)
-    }
-
-    override func setFrameSize(_ newSize: NSSize) {
-        super.setFrameSize(newSize)
-        setScrollOffset(scrollOffset)
-    }
-
-    override func viewDidChangeEffectiveAppearance() {
-        super.viewDidChangeEffectiveAppearance()
-        needsDisplay = true
-    }
-
-    private var maxScrollOffset: CGFloat {
-        max(0, CGFloat(rows.count) * rowHeight - max(0, bounds.height - rowTopInset))
-    }
-
-    private func setScrollOffset(_ offset: CGFloat) {
-        let clamped = min(max(0, offset), maxScrollOffset)
-        if clamped != scrollOffset {
-            scrollOffset = clamped
-            needsDisplay = true
-        }
-    }
-
-    private func drawScrollThumb() {
-        let contentHeight = CGFloat(rows.count) * rowHeight
-        let viewportHeight = max(1, bounds.height - rowTopInset)
-        guard contentHeight > viewportHeight else { return }
-
-        let trackHeight = viewportHeight
-        let thumbHeight = max(24, trackHeight * viewportHeight / contentHeight)
-        let travel = max(1, trackHeight - thumbHeight)
-        let thumbY = rowTopInset + travel * (scrollOffset / maxScrollOffset)
-        let thumbRect = NSRect(x: bounds.width - 8, y: thumbY, width: 4, height: thumbHeight)
-        NSColor.tertiaryLabelColor.setFill()
-        NSBezierPath(roundedRect: thumbRect, xRadius: 2, yRadius: 2).fill()
-    }
 }

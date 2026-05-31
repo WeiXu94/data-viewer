@@ -5,19 +5,19 @@
     <key>CFBundleDevelopmentRegion</key>
     <string>en</string>
     <key>CFBundleDisplayName</key>
-    <string>DataViewer Quick Look Preview</string>
+    <string>DataViewer Quick Look Extension</string>
     <key>CFBundleExecutable</key>
-    <string>DtaQuickLookPreview</string>
+    <string>DataViewerQuickLookExtension</string>
     <key>CFBundleIdentifier</key>
-    <string>local.data-viewer.quicklook-preview</string>
+    <string>com.weixu.DataViewer.QuickLookExtension</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>
-    <string>DtaQuickLookPreview</string>
+    <string>DataViewerQuickLookExtension</string>
     <key>CFBundlePackageType</key>
     <string>XPC!</string>
     <key>CFBundleShortVersionString</key>
-    <string>0.1.0</string>
+    <string>1.5.1</string>
     <key>CFBundleSupportedPlatforms</key>
     <array>
         <string>MacOSX</string>
@@ -34,8 +34,9 @@
             <true/>
             <key>QLSupportedContentTypes</key>
             <array>
-                <string>com.stata.stata.data</string>
                 <string>com.stata.dta</string>
+                <string>org.r-project.rds</string>
+                <string>com.mathworks.mat-file</string>
             </array>
             <key>QLSupportsSearchableItems</key>
             <false/>
@@ -43,7 +44,7 @@
         <key>NSExtensionPointIdentifier</key>
         <string>com.apple.quicklook.preview</string>
         <key>NSExtensionPrincipalClass</key>
-        <string>DtaQuickLookPreview.DtaPreviewProvider</string>
+        <string>DataViewerQuickLookExtension.DataPreviewProvider</string>
     </dict>
 </dict>
 </plist>
